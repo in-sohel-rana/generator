@@ -45,9 +45,6 @@
                             </div>
                         </div>
                         <a href="{{ route(name: '{{modelNamePluralKebabCase}}.index') }}" class="btn btn-secondary">{{ __(key: 'Back') }}</a>
-                        {{-- @can('{{modelNameSingularLowercase}} edit') --}}
-                            <a href="{{ route(name: '{{modelNamePluralKebabCase}}.edit', parameters: $model->id) }}" class="btn btn-primary">{{ __(key: 'Edit') }}</a>
-                        {{-- @endcan --}}
                     </div>
                 </div>
             </div>
