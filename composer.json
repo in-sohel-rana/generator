@@ -1,0 +1,84 @@
+{
+    "name": "in-sohel-rana/generator",
+    "description": "Laravel starter app & simple crud generator",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/in-sohel-rana/generator",
+    "keywords": [
+        "package",
+        "laravel",
+        "starter-app",
+        "crud-generator"
+    ],
+    "autoload": {
+        "psr-4": {
+            "EvdigiIna\\Generator\\": "src/",
+            "Tests\\": "tests/"
+        },
+        "files": [
+            "src/helper.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Mohammad Zulfahmi",
+            "email": "mohammad.zulfahmi03@gmail.com",
+            "homepage": "https://github.com/Zzzul"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "yajra/laravel-datatables-oracle": "^11.0|^12.0"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.1",
+        "orchestra/testbench": "^10.0"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "EvdigiIna\\Generator\\Providers\\GeneratorServiceProvider",
+                "Yajra\\DataTables\\DataTablesServiceProvider"
+            ],
+            "aliases": {
+                "DataTables": "Yajra\\DataTables\\Facades\\DataTables"
+            }
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve"
+        ],
+        "lint": [
+            "@php vendor/bin/phpstan analyse"
+        ],
+        "test": [
+            "@php vendor/bin/phpunit"
+        ]
+    }
+}

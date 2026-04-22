@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Exports;
+
+use {{modelPath}};
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+
+class {{modelNamePlural}}Export implements FromQuery, WithMapping, WithHeadings
+{
+    use Exportable;
+
+    public function query(): Builder
+    {
+        return {{modelName}}::{{relations}};
+    }
+
+    public function headings(): array
+    {
+        return [
+            {{headings}}
+            'Created At',
+            'Updated At',
+        ];
+    }
+
+    public function map($row): array
+    {
+        return [
+            {{map}}
+            $row->created_at?->format('{{dateTimeFormat}}'),
+            $row->updated_at?->format('{{dateTimeFormat}}'),
+        ];
+    }
+}

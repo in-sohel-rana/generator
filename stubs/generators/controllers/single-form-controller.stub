@@ -1,0 +1,49 @@
+<?php
+
+{{namespace}}
+use {{modelPath}};
+use {{requestPath}};
+use Illuminate\Routing\Controllers\{HasMiddleware, Middleware};
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;{{useExportNamespace}}
+
+class {{modelNameSingularPascalCase}}Controller extends Controller implements HasMiddleware
+{
+    /**
+     * Get the middleware that should be assigned to the controller.
+     */
+    public static function middleware(): array
+    {
+        return [
+            // {{middlewareName}}
+
+            // TODO: uncomment this code below if you are using spatie permission
+            // new Middleware(middleware: 'permission:{{modelNameSpaceLowercase}} create', only: ['index', 'store']),
+        ];
+    }
+
+    /**
+     * Show the form for creating or updating a resource.
+     */
+    public function index(): View
+    {
+        ${{modelNameSingularCamelCase}} = {{query}}->first();
+
+        return view(view: '{{viewPath}}{{modelNamePluralKebabCase}}.create', data: compact(var_name:'{{modelNameSingularCamelCase}}'));
+    }
+
+    /**
+     * Store or update resource in storage.
+     */
+    public function store(Store{{modelNameSingularPascalCase}}Request $request): RedirectResponse
+    {
+        ${{modelNameSingularCamelCase}} = {{modelNameSingularPascalCase}}::first();
+
+        {{passwordFieldStore}}{{inputMonths}}
+        {{updateDataAction}}
+
+        return to_route(route: '{{modelNamePluralKebabCase}}.index')->with(key: 'success', value: __(key: 'The {{modelNameCleanSingular}} was created successfully.'));
+    }
+    
+    {{exportFunction}}
+}
